@@ -28,6 +28,7 @@ class FruitShop {
     }
     
     RemoveSupplyItem(commodityName) {
+        // TODO: there might be a multi-supplier bug here?
         return this.itemsRepository.RemoveByCommodity(commodityName);
     }
 }
