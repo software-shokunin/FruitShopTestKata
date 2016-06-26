@@ -6,7 +6,7 @@
   "scripts": {
     "compile" : "babel --presets es2015 -d lib/ src/",
     "testonly" : "npm run compile && mocha --compilers js:babel-core/register",
-    "test" : "./node_modules/.bin/istanbul cover _mocha -- --require babel-register test"
+    "test" : "npm run compile && ./node_modules/.bin/istanbul cover _mocha -- --require babel-register test"
   },
   "author": "Ken McCormack <kenmccormack@thoughtworks.com>",
   "license": "ISC",
