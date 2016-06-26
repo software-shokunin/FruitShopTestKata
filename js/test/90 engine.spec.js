@@ -56,10 +56,9 @@ describe('Engine', () => {
                 .to.equal('OK'); 
         });
         
-        it('Can not add bananas', () => {
-            expect(sut.IsSupplierPermittedToAdd('xyz', 'bananas'))
-                .to.equal('Not OK');
+        it('Can now add "Bananas" (xyz use different product codes)', () => {
+            expect(sut.IsSupplierPermittedToAdd('xyz', 'Bananas'))
+                .to.equal('OK');
         });
     });
-    
 });
