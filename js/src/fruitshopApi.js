@@ -1,11 +1,11 @@
-class FruitShop {
+class FruitShopApi {
 
-    constructor(itemsRepository) {
-        this.itemsRepository = itemsRepository;
+    constructor(engine) {
+        this.engine = engine;
     }
 
     GetSupplyItems(commodityName) {
-        return this.itemsRepository.GetByCommodity(commodityName);
+        return this.engine.GetByCommodity(commodityName);
     }
     
     AddSupplyItem(newItem)
@@ -14,14 +14,14 @@ class FruitShop {
            throw new Error('NULLFAIL:AddSupplyItem');
         }
         
-        return this.itemsRepository.AddOrReplace(newItem);
+        return this.engine.AddOrReplace(newItem);
                 
         // let's add a new security check
-        //let isUserAllowedToAdd = this.itemsRepository.IsSupplierPermittedToAdd(newItem.supplierName, newItem.commodityName);
+        //let isUserAllowedToAdd = this.engine.IsSupplierPermittedToAdd(newItem.supplierName, newItem.commodityName);
         
         //if (isUserAllowedToAdd === 'OK') {
         //    console.log('Adding ' + newItem.commodityName + ' for ' + newItem.supplierName);
-        //    return this.itemsRepository.AddOrReplace(newItem);
+        //    return this.engine.AddOrReplace(newItem);
         //} 
         
         //return 'Not OK!';
@@ -29,8 +29,8 @@ class FruitShop {
     
     RemoveSupplyItem(commodityName) {
         // TODO: there might be a multi-supplier bug here?
-        return this.itemsRepository.RemoveByCommodity(commodityName);
+        return this.engine.RemoveByCommodity(commodityName);
     }
 }
 
-module.exports = FruitShop;
+module.exports = FruitShopApi;

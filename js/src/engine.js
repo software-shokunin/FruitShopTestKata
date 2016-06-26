@@ -1,4 +1,4 @@
-class ItemsRepository {
+class Engine {
 
     constructor() {
         // this might become a database in future
@@ -71,4 +71,4 @@ class ItemsRepository {
     
 }
 
-module.exports = ItemsRepository;
+module.exports = Engine;

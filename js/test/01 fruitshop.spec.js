@@ -2,15 +2,15 @@ let expect = require('chai').expect;
 
 describe('FruitShop:', () => {
 
-    let TestExamples = require('./testExamples');
-    let FruitShop = require('../src/fruitshop');
-    let ItemsRepository = require('../src/itemsRepository');
+    let TestExamples = require('./04 testExamples');
+    let FruitShop = require('../src/fruitshopApi');
+    let Engine = require('../src/engine');
     let fruitShop = null; // this is the system under test
     let examples = null;
     
     beforeEach(done => {
         // create system under test - each 'it' call gets a clean fixture
-        fruitShop = new FruitShop(new ItemsRepository());
+        fruitShop = new FruitShop(new Engine());
         examples = new TestExamples();
         done();
     });
@@ -32,6 +32,9 @@ describe('FruitShop:', () => {
             expect(fruitShop.AddSupplyItem(examples.bananasChangedItem)).to.equal("OK");            
         });
         
+        it('throws NULLFAIL:AddSupplyItem when null', () => {
+            expect(() => fruitShop.AddSupplyItem(null)).to.throw(Error, 'NULLFAIL:AddSupplyItem');
+        });
     });
        
     context('GetSupplyItems:', () => {

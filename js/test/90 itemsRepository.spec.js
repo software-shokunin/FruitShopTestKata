@@ -1,12 +1,12 @@
 let expect = require('chai').expect;
 
-describe('ItemsRepository', () => {
+describe('Engine', () => {
 
     let sut = null; 
     
     beforeEach(done => {
-        let ItemsRepository = require('../src/itemsRepository');
-        sut = new ItemsRepository();
+        let Engine = require('../src/engine');
+        sut = new Engine();
         done();
     });
 

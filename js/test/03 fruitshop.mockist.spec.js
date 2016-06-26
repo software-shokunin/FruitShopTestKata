@@ -6,17 +6,17 @@ let sinon = require('sinon');
 
 describe('MockedFruitShop:', () => {
 
-    let TestExamples = require('./testExamples');
-    let FruitShop = require('../lib/fruitshop');
-    let ItemsRepository = require('../lib/itemsRepository');
+    let TestExamples = require('./04 testExamples');
+    let FruitShop = require('../lib/fruitshopApi');
+    let Engine = require('../lib/engine');
     let fruitShop = null; // this is the system under test
     let examples = null;
-    let itemsRepository = null; 
+    let engine = null; 
    
     beforeEach(done => {
         // create system under test
-        itemsRepository = new ItemsRepository();
-        fruitShop = new FruitShop(itemsRepository);
+        engine = new Engine();
+        fruitShop = new FruitShop(engine);
         examples = new TestExamples();
         done();
     });
@@ -39,7 +39,7 @@ describe('MockedFruitShop:', () => {
             // becomes
             
             // Where did the 'AddOrReplace' concept come from?
-            let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+            let mock = sinon.mock(engine, 'AddOrReplace');
             
             // Yes, we're testing zero logic in fruitShop, but also a key
             // point is that internal details about a dependency have leaked out here
@@ -69,7 +69,7 @@ describe('MockedFruitShop:', () => {
             // expect(fruitShop.AddSupplyItem(examples.bananasChangedItem))
             //     .to.equal("OK");    
             // now
-            let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+            let mock = sinon.mock(engine, 'AddOrReplace');
             
             mock.expects('AddOrReplace').withArgs(examples.bananas)
                 .once()
@@ -94,7 +94,7 @@ describe('MockedFruitShop:', () => {
         
         it('MOCK: AddSupplyItem returns Not OK', () => {
             
-            let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+            let mock = sinon.mock(engine, 'AddOrReplace');
             
             // We're currently testing nothing!
             mock.expects('AddOrReplace').withArgs(examples.bananas)
@@ -114,7 +114,7 @@ describe('MockedFruitShop:', () => {
         xcontext('Unathorized supplier:', () => {       
             it('AddSupplyItem returns "Not OK"', () => {
                 
-                let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+                let mock = sinon.mock(engine, 'AddOrReplace');
                 
                 // if a put is unathorized, we shouldn't expect a call to 'Add'
                 mock.expects('AddOrReplace')
@@ -131,7 +131,7 @@ describe('MockedFruitShop:', () => {
         xcontext('Authorized supplier:', () => {           
             it('AddSupplyItem returns OK', () => {
                 
-                let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+                let mock = sinon.mock(engine, 'AddOrReplace');
                 mock.expects('AddOrReplace').withArgs(examples.bananas)
                     .returns('OK');
                     
@@ -152,12 +152,12 @@ describe('MockedFruitShop:', () => {
             // now
             
             // a crazy test - but consider these are often added early 
-            // during incremental TDD, mocking out ItemsRepository, before it existed
+            // during incremental TDD, mocking out Engine, before it existed
             
             // GOTCHA - the test is harder to understand 
-            // GOTCHA - because we're forced to emulate the behaviour of itemsRepository here,
+            // GOTCHA - because we're forced to emulate the behaviour of engine here,
             // GOTCHA - if the behaviour of the real component changes, these tests *may* not break!
-            let mock = sinon.mock(itemsRepository, 'AddOrReplace');
+            let mock = sinon.mock(engine, 'AddOrReplace');
             mock.expects('AddOrReplace').withArgs(examples.bananas)
                 .returns('OK');
             
@@ -205,6 +205,4 @@ describe('MockedFruitShop:', () => {
             expect(() => fruitShop.AddSupplyItem(null)).to.throw(Error, 'NULLFAIL:AddSupplyItem');
         });
     });
-    
-    
 });
