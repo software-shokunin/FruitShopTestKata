@@ -56,7 +56,7 @@ class Engine {
         switch(commodityCode)
         {
             case 'bananas' :
-                result = (supplierName === 'abc');
+                result = (supplierName === 'abc' || supplierName === 'xyz');
                 break;
         
             case 'oranges' :

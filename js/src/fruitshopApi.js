@@ -14,15 +14,21 @@ class FruitShopApi {
            throw new Error('NULLFAIL:AddSupplyItem');
         }
         
-        return this.engine.AddOrReplace(newItem);
-                
-        // let's add a new security check
-        //let isUserAllowedToAdd = this.engine.IsSupplierPermittedToAdd(newItem.supplierName, newItem.commodityName);
+        // bugfix #1197 - permit client to add 'Bananas' or 'bananas'
+        let commodity = {
+            supplierName : newItem.supplierName,
+            commodityName : newItem.commodityName.toLowerCase(),
+            price : newItem.price,
+            maxQuantity : newItem.maxQuantity        
+        };
         
-        //if (isUserAllowedToAdd === 'OK') {
-        //    console.log('Adding ' + newItem.commodityName + ' for ' + newItem.supplierName);
-        //    return this.engine.AddOrReplace(newItem);
-        //} 
+        // let's add a new security check
+        let isUserAllowedToAdd = this.engine.IsSupplierPermittedToAdd(commodity.supplierName, commodity.commodityName);
+        
+        if (isUserAllowedToAdd === 'OK') {
+           console.log('Adding ' + commodity.commodityName + ' for ' + commodity.supplierName);
+           return this.engine.AddOrReplace(commodity);
+        } 
         
         //return 'Not OK!';
     }
