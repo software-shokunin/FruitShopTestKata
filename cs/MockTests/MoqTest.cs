@@ -1,64 +1,69 @@
 ﻿using System;
-using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Shokunin.MockTests
 {
-    public interface IFakeTest
+    public interface IFakeStubjectUnderTest
     {
-        int A();
+        int GetInteger();
 
-        string B();
+        string GetString();
 
-        decimal C();
+        decimal GetDecimal();
+
+        DateTime GetDateTime();
     }
 
     [TestClass]
     public class MoqTest
     {
         [TestMethod]
-        public void TestAMoqMock()
+        public void TestAMoqStub()
         {
-            var fake = new Mock<IFakeTest>();
-            fake.Setup(mock => mock.A()).Returns(1);
+            // wrap fake with interceptors
+            var fake = new Moq.Mock<IFakeStubjectUnderTest>();
+
+            // set up mappings
+            fake.Setup(mock => mock.GetInteger()).Returns(1);
 
             var sut = fake.Object;
-            
-            Assert.AreEqual(1, sut.A());
 
-            Console.WriteLine("B is :" + sut.B());
+            Assert.AreEqual(1, sut.GetInteger());
 
-            sut.C();
+            Console.WriteLine("B is :" + sut.GetString());
+
+            sut.GetDecimal();
 
             // Explicitly verify each expectation...
-            fake.Verify(mock => mock.A(), Times.Once());
-            
-            // Verify everything
+            fake.Verify(mock => mock.GetInteger(), Times.Once());
+
+            // For stub behaviour, we just don't verify anything
             fake.VerifyAll();
         }
 
-
         [TestMethod]
-        public void TestAMoqStub()
+        public void TestAMoqMock()
         {
-            var fake = new Mock<IFakeTest>();
-            fake.Setup(mock => mock.A()).Returns(1);
+            var fake = new Moq.Mock<IFakeStubjectUnderTest>();
+            fake.Setup(mock => mock.GetInteger()).Returns(1);
 
+            // Moq keeps the fake and its definition separate
             var sut = fake.Object;
 
-            Assert.AreEqual(1, sut.A());
+            Assert.AreEqual(1, sut.GetInteger());
+            Assert.AreEqual(1, sut.GetInteger());
 
-            Console.WriteLine("B is :" + sut.B());
-
-            sut.C();
+            // when no mappings are set, a mock will return default<T>
+            Assert.AreEqual(null, sut.GetString());
+            Assert.AreEqual(0m, sut.GetDecimal());
+            Assert.AreEqual(DateTime.MinValue, sut.GetDateTime());
 
             // Explicitly verify each expectation...
-            fake.Verify(mock => mock.A(), Times.Once());
+            fake.Verify(mock => mock.GetInteger(), Times.Exactly(2));
 
-            // For stub behaviour, we just don't verify anything
-            // fake.VerifyAll();
+            // Verify everything
+            fake.VerifyAll();
         }
-
-
     }
 }
