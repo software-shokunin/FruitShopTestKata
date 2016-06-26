@@ -54,6 +54,7 @@ class TestExamples {
         return {
             supplierName : 'notabananasupplier',
             commodityName : 'bananas',
+            // do we really need all these numbers?  They are never used!
             price : 3.50, 
             maxQuantity : 500,
         }
