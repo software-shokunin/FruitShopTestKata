@@ -1,6 +1,6 @@
 let expect = require('chai').expect;
 
-describe('FruitShop:', () => {
+describe('01 FruitShop:', () => {
 
     let TestExamples = require('./04 testExamples');
     let FruitShop = require('../src/fruitshopApi');
@@ -39,23 +39,21 @@ describe('FruitShop:', () => {
        
     context('GetSupplyItems:', () => {
         
-        it('Should return a SupplyItem added by AddSupplyItem', () => {
+        it('Returns empty array for unknown commodityName', () => {
+
+            fruitShop.AddSupplyItem(examples.bananas);
+            expect(fruitShop.GetSupplyItems("non-existent commodityName"))
+                .to.be.emptyArray;
+        });
+
+        it('Should return SupplyItem after add', () => {
                 
             fruitShop.AddSupplyItem(examples.bananas);
-                    
             expect(fruitShop.GetSupplyItems(examples.bananas.commodityName))
                 .to.deep.equal( [examples.bananas] );
         });
         
-        it('GetSupplyItems returns empty array for unknown commodity', () => {
-            
-            fruitShop.AddSupplyItem(examples.bananas);
-                    
-            expect(fruitShop.GetSupplyItems("non-existent commodityName"))
-                .to.be.emptyArray;
-        });
-        
-        it('Should return only the most up to date SupplyItem:', () => {
+        it('Should return only the latest added SupplyItem after multiple adds:', () => {
        
             fruitShop.AddSupplyItem(examples.bananas);
             fruitShop.AddSupplyItem(examples.bananasChangedItem);
@@ -134,5 +132,6 @@ describe('FruitShop:', () => {
         
         it('We will continue to add system tests to drive the component through its lifecycle!')
         
+        // Q. Do we have enough tests to cover all logical cases?  Our coverage is 100%
     });
 });

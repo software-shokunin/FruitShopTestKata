@@ -4,7 +4,7 @@ chai.use(require("sinon-chai"));
 
 let sinon = require('sinon');
 
-describe('MockedExamples:', () => {
+describe('02 MockedExamples:', () => {
 
     let TestExamples = require('./04 testExamples');
     let FruitShop = require('../src/fruitshopApi');

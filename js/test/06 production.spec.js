@@ -1,7 +1,7 @@
 let expect = require('chai').expect;
 
 // ignored for now
-xdescribe('ProductionSpec:', () => {
+describe('06 ProductionSpec:', () => {
 
     let ReplayProductionTraffic = require('./05 productionFailExamples');
     let FruitShop = require('../src/fruitshopApi');

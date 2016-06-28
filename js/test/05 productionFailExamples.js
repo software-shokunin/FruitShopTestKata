@@ -48,7 +48,7 @@ class ReplayProductionTraffic {
         // XYZ made an order by error - two PUTs in market
         this.fruitshopApi.AddSupplyItem({
             supplierName: 'xyz',
-            commodityName : 'Bananas',
+            commodityName : 'Bananas', // XYZ system is different!
             price : 3.75,
             maxQuantity : 100,
         });

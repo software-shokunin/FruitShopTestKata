@@ -26,7 +26,7 @@ class FruitShopApi {
         let isUserAllowedToAdd = this.engine.IsSupplierPermittedToAdd(commodity.supplierName, commodity.commodityName);
         
         if (isUserAllowedToAdd === 'OK') {
-           console.log('Adding ' + commodity.commodityName + ' for ' + commodity.supplierName);
+           //console.log('Adding ' + commodity.commodityName + ' for ' + commodity.supplierName);
            return this.engine.AddOrReplace(commodity);
         } 
         

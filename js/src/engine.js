@@ -64,7 +64,7 @@ class Engine {
                 break;
         }
         
-        console.log('Security Result:' + result + ' commodity: ' + commodityCode + ' supplier:' + supplierName);
+        //console.log('Security Result:' + result + ' commodity: ' + commodityCode + ' supplier:' + supplierName);
             
         return result ? 'OK' : 'Not OK';
     }
