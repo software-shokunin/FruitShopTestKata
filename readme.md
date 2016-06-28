@@ -3,7 +3,13 @@
 You'll need NPM installed - for all new to Node folks, see
 http://blog.teamtreehouse.com/install-node-js-npm-mac
 
+The repo has two folders
+js - jsvsacript (install and run, see below)
+cs - C# test examples using Moq and Rhino Mocks strict mocks (runnable but no install required / Visual Studio)
+
+
 ## Install using 
+`cd js`
 `npm install`
 
 ## Run tests using 
